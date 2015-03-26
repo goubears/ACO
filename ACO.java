@@ -144,9 +144,9 @@ public class ACO{
 			e.printStackTrace();	
 		}
 
-		for (int i =0; i<place.size(); i++) {  		
-        	System.out.printf("%d, %f, %f %n",place.get(i).getIdentifier(), place.get(i).getX(), place.get(i).getY());
-    	}
+		// for (int i =0; i<place.size(); i++) {  		
+  //       	System.out.printf("%d, %f, %f %n",place.get(i).getIdentifier(), place.get(i).getX(), place.get(i).getY());
+  //   	}
 	}
 
 

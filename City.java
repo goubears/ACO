@@ -24,11 +24,12 @@ public class City {
     private int identifier;
 
     //constructor takes city coordinates as well as identifier
-    public City(double xCoord, double yCoord, int index){
+    public City(double[] coords){
+        
+        identifier = (int) coords[0];
+        x = coords[1];
+        y = coords[2];
 
-        x = xCoord;
-        y = yCoord;
-        identifier = index;
     }
 
 
