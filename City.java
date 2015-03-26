@@ -32,6 +32,14 @@ public class City {
 
     }
 
+    //other, slightly better looking constructor
+    public City(double xCoord, double yCoord, int index){
+
+        x = xCoord;
+        y = yCoord;
+        identifier = index;
+    }
+
 
     public double getX(){
 

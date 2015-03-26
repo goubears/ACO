@@ -23,7 +23,7 @@ import java.util.Random;
 public class Path {
 
     //variables for the path
-    private double pherLevel;
+    private double pheromone;
     private City a;
     private City b;
     private int identifier;
@@ -35,18 +35,22 @@ public class Path {
         a = one;
         b = two;
         identifier = index;
-        pherLevel = 0.2;
+        pheromone = 0.2;
         length = Math.sqrt((a.getX() - b.getX())*(a.getX() - b.getX()) + (a.getY() - b.getY())*(a.getY() - b.getY()));
     }
 
     public double getPheromone(){
 
-        return pherLevel;
+        return pheromone;
     }
 
-    public void setPheronome(double update){
+    public void updatePheromone(double rowe, double update){
 
-        pherLevel = update;
+        //pheromone = update;
+    }
+
+    public void updateBest(double rowe, double update, int factor){
+
     }
 
     public City getA(){

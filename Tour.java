@@ -58,6 +58,11 @@ public class Tour {
         best = true;
     }
 
+      public void notBest(){
+
+        best = false;
+    }
+
     public int size(){
 
         return route.size();
