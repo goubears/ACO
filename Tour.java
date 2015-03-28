@@ -53,7 +53,12 @@ public class Tour {
         return route.isEmpty();
     }
 
-    public void isBest(){
+    public boolean isBest(){
+
+        return best;
+    }
+
+    public void markBest(){
 
         best = true;
     }

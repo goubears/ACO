@@ -37,6 +37,7 @@ public class Path {
         identifier = index;
         pheromone = 0.2;
         length = Math.sqrt((a.getX() - b.getX())*(a.getX() - b.getX()) + (a.getY() - b.getY())*(a.getY() - b.getY()));
+        //System.out.println("Path length: " + length);
     }
 
     public double getPheromone(){
@@ -46,12 +47,15 @@ public class Path {
 
     public void updatePheromone(double rowe, double update){
 
-        //pheromone = update;
+        pheromone = (1 - rowe)*pheromone + update;
+        //System.out.println("Path " + identifier + ": " + pheromone);
     }
 
-    public void updateBest(double rowe, double update, int factor){
+    // public void updateBest(double rowe, double update, int factor){
 
-    }
+    //     pheromone = 
+
+    // }
 
     public City getA(){
 

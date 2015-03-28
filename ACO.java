@@ -100,6 +100,10 @@ public class ACO{
 		}
 
 		readFile(file);
+
+		elite.elitistAnt(place, ants, elitism, alpha, beta, roh, iterations, args[0]);
+
+		
 				
 	}
 
