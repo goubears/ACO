@@ -5,7 +5,7 @@
          *                                      *
          ****************************************/
 
-        /*
+        /****
 
         Description:    This algorithm simulates Ant Colony Optimization on the traveling salesman problem. Paths are constructed between cities, and ants
                         walk these paths to complete tours. After each tour is complete, paths receive pheromone updates. Updates are proportional to the
