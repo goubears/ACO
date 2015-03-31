@@ -64,6 +64,7 @@ public class ACO{
 	private static double alpha;
 	private static double beta;
 	private static double roh;
+	private static double optimum;
 
 	//elitist ant variables
 	private static double elitism;
@@ -84,15 +85,16 @@ public class ACO{
 		alpha 		= Double.parseDouble(args[4]);	//double
 		beta		= Double.parseDouble(args[5]);	//double
 		roh			= Double.parseDouble(args[6]);	//double
+		optimum 	= Double.parseDouble(args[7]); 	//double
 
 		if(algorithm.equals("e")){
-			elitism = Double.parseDouble(args[7]);	//double
+			elitism = Double.parseDouble(args[8]);	//double
 
 		}
 		else if(algorithm.equals("a")){
-			epsilon = Double.parseDouble(args[7]);	//double
-			tao 	= Double.parseDouble(args[8]);	//double
-			qProb 	= Double.parseDouble(args[9]);	//double
+			epsilon = Double.parseDouble(args[8]);	//double
+			tao 	= Double.parseDouble(args[9]);	//double
+			qProb 	= Double.parseDouble(args[10]);	//double
 		}
 		else{ 
 			System.out.println("A valid algorithm name is needed.  e/a");
@@ -101,6 +103,7 @@ public class ACO{
 
 		readFile(file);
 
+		//ANDREW: add optimum into your args
 		elite.elitistAnt(place, ants, elitism, alpha, beta, roh, iterations, args[0]);
 
 		
