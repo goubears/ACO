@@ -37,7 +37,7 @@ public class ElitistAnt {
 
 
     //time limit to stop algorithm. set at ten minutes
-    private static final long TIME_LIMIT = 600000;
+    private static final long TIME_LIMIT = 120000;
 
     //random number generators
     private static Random rand = new Random();
@@ -46,15 +46,16 @@ public class ElitistAnt {
     private static int NUM_ANTS;
     private static String FILE_NAME;
     private static double ELITISM_FACTOR;
-    //private static final double OPTIMAL_LENGTH = 300;
+    private static double TARGET_OPTIMUM;
     private static int NUM_CITIES;
     private static int NUM_ITERATIONS;
     private static double ALPHA;
     private static double BETA;
     private static double ROH;
+    private static double PERCENT_ABOVE_OPTIMUM = 0.0;
 
 
-    public static void elitistAnt(Vector<City> citiesVector, int numAnts, double elitismFactor, double alpha, double beta, double roh, int iterations, String fileName){
+    public static void elitistAnt(Vector<City> citiesVector, int numAnts, double elitismFactor, double alpha, double beta, double roh, int iterations, String fileName, double optimum){
 
         //set up variables
         cities = citiesVector;
@@ -66,6 +67,8 @@ public class ElitistAnt {
         ROH = roh;
         NUM_ITERATIONS = iterations;
         FILE_NAME = fileName;
+        TARGET_OPTIMUM = (double)optimum * (1 + PERCENT_ABOVE_OPTIMUM);
+        //System.out.println("Target optimum: " + TARGET_OPTIMUM);
 
     //}
 
@@ -103,7 +106,7 @@ public class ElitistAnt {
 
         //continue sending out ants (finding solutions and updating) until find optimum or reach time limit
         int totalIterations = 0;
-        while (totalIterations < NUM_ITERATIONS && duration <= TIME_LIMIT){
+        while (totalIterations < NUM_ITERATIONS && duration <= TIME_LIMIT && bestLength > TARGET_OPTIMUM){
 
             //System.out.println("Entered while loop.");
 
@@ -253,7 +256,7 @@ public class ElitistAnt {
             //System.out.println(totalIterations);
             totalIterations++;
 
-            System.out.println("Current best: " + currBestLength);
+            //System.out.println("Current best: " + currBestLength);
 
             solutions.clear();
 
@@ -271,6 +274,13 @@ public class ElitistAnt {
         System.out.println("Number of cities: " + NUM_CITIES);
         System.out.println("Number of ants: " + NUM_ANTS);
 
+        if (bestLength < TARGET_OPTIMUM){
+
+        System.out.println("Target optimum reached early.");
+        
+        }
+        
+        System.out.println("Number of iterations: " + totalIterations);
         //we know how many clauses we have satisfied
         System.out.println("Length of shortest path: " + bestLength);
 
@@ -283,35 +293,8 @@ public class ElitistAnt {
     }
 
 
-/*
- 
-                //Evaporate pheromones
-                //create pherChange vector[double]
-                For I = 0 to tourVector.size()
-                               
-                                For j = 0 to tour.length()
-                                               
-                                                If pherChange.get(currTour.path.get(j).identifier) == 0
- 
-                                                                add evaporation
- 
-                                                if currTour is best, add with elitism factor
- 
-                                                else add normally
- 
-                //loop through paths vector, add pherChange to each
-//update bestSolution and bestLength
-                //empty tours vector
-               
-//print out results, time, GLaDOS easter egg
- 
-                               
- 
-               
- 
-*/
 
-    //method to fill temp cities vector
+    //method to fill temp cities vector. DON'T GET RID OF ME! I AM A TIMELSS RELIC OF THE PAST
     public static void generateCities(){
 
         for (int i = 0; i < NUM_CITIES; i++){

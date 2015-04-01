@@ -104,7 +104,7 @@ public class ACO{
 		readFile(file);
 
 		//ANDREW: add optimum into your args
-		elite.elitistAnt(place, ants, elitism, alpha, beta, roh, iterations, args[0]);
+		elite.elitistAnt(place, ants, elitism, alpha, beta, roh, iterations, args[0], optimum);
 
 		
 				
