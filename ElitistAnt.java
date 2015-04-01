@@ -260,6 +260,9 @@ public class ElitistAnt {
 
             solutions.clear();
 
+            //update time
+            endTime = System.currentTimeMillis();
+            duration = (endTime - startTime);
 
             //break;
         }
@@ -279,6 +282,11 @@ public class ElitistAnt {
         System.out.println("Target optimum reached early.");
         
         }
+
+        if (duration > TIME_LIMIT){
+
+            System.out.println("Time limit reached.");
+        }
         
         System.out.println("Number of iterations: " + totalIterations);
         //we know how many clauses we have satisfied
@@ -286,8 +294,7 @@ public class ElitistAnt {
 
         
 
-        endTime = System.currentTimeMillis();
-        duration = (endTime - startTime);
+        
         System.out.println("\nThis method took: " + duration + " milliseconds.");
 
     }
