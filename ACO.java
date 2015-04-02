@@ -45,7 +45,7 @@ You’ll want to use smaller problems to debug your code, but I want you to cond
 import java.io.*;
 import java.util.*;
 
-public class ACO{
+public class ACO {
 
 	//an instance of the elitism system
 	private static ElitistAnt elite;
@@ -63,99 +63,98 @@ public class ACO{
 	private static int iterations;
 	private static double alpha;
 	private static double beta;
-	private static double roh;
+	private static double rho;
 	private static double optimum;
 
 	//elitist ant variables
 	private static double elitism;
 
 	//any colony variables
+	private static double tau;
 	private static double epsilon;
-	private static double tao;
 	private static double qProb;
 
 
-	//Main method
-	public static void main(String[] args) {
-		
+	//main method
+	public static void main(String[] args) 
+	{
 		file 		= new File(args[0]);
 		algorithm 	= args[1];  					//either e or a
 		ants 		= Integer.parseInt(args[2]);	//integer
 		iterations 	= Integer.parseInt(args[3]);	//integer
 		alpha 		= Double.parseDouble(args[4]);	//double
 		beta		= Double.parseDouble(args[5]);	//double
-		roh			= Double.parseDouble(args[6]);	//double
+		rho			= Double.parseDouble(args[6]);	//double
 		optimum 	= Double.parseDouble(args[7]); 	//double
 
-		if(algorithm.equals("e")){
+		readFile(file);
+		
+		if(algorithm.equals("e"))
+		{
 			elitism = Double.parseDouble(args[8]);	//double
-
+			
+			//ANDREW: add optimum into your args
+			elite.elitistAnt(place, ants, elitism, alpha, beta, rho, iterations, args[0], optimum);
 		}
-		else if(algorithm.equals("a")){
+		else if(algorithm.equals("a"))
+		{
 			epsilon = Double.parseDouble(args[8]);	//double
-			tao 	= Double.parseDouble(args[9]);	//double
+			tau 	= Double.parseDouble(args[9]);	//double
 			qProb 	= Double.parseDouble(args[10]);	//double
+			
+			ACS.acs(args[0], optimum, place, ants, iterations, alpha, beta, rho, tau, epsilon, qProb);
 		}
-		else{ 
+		else
+		{ 
 			System.out.println("A valid algorithm name is needed.  e/a");
 			System.exit(0);
 		}
-
-		readFile(file);
-
-		//ANDREW: add optimum into your args
-		elite.elitistAnt(place, ants, elitism, alpha, beta, roh, iterations, args[0], optimum);
-
-		
-				
 	}
 
 
 	//reads file and stores the cities coordinates and identifier
-	public static void readFile(File f) {
-		
-		try {
+	public static void readFile(File f) 
+	{	
+		try 
+		{
 			reader = new BufferedReader(new FileReader(f));
 			String line;
 			boolean tempC = false; //true if the line read is coordinates
 
-			while (!(line = reader.readLine()).equals("EOF")) {
-				if (line.equals("NODE_COORD_SECTION")) {
+			while (!(line = reader.readLine()).equals("EOF")) 
+			{
+				if (line.equals("NODE_COORD_SECTION")) 
+				{
 					tempC = true;
 					continue;
 				}
-
-				if(tempC){
+				if(tempC)
+				{
 					String tempL = line.trim();
 					String[] splitStr = tempL.split("\\s+");
 
-					if(splitStr.length != 3){
+					if(splitStr.length != 3)
+					{
 						System.out.println("There are more than 2 coordinates.");
 						System.exit(0);
 					}
+					
+					int identifier = Integer.parseInt(splitStr[0]); 
+					double xCoord =	Double.parseDouble(splitStr[1]);
+					double yCoord =	Double.parseDouble(splitStr[2]);
 
-					double[] tempS = new double[splitStr.length];
-					tempS[0] = 	Double.parseDouble(splitStr[0]); 
-					tempS[1] =	Double.parseDouble(splitStr[1]);
-					tempS[2] =	Double.parseDouble(splitStr[2]);
-
-					City town = new City(tempS);
+					City town = new City(xCoord, yCoord, identifier);
 					place.add(town);
 				}
 			}
 
 			reader.close();
-
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			System.err.format("Exception occurred trying to read '%s'.", f);
 			e.printStackTrace();	
 		}
-
-		// for (int i =0; i<place.size(); i++) {  		
-  //       	System.out.printf("%d, %f, %f %n",place.get(i).getIdentifier(), place.get(i).getX(), place.get(i).getY());
-  //   	}
 	}
-
-
-
+	
 }

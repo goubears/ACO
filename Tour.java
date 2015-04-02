@@ -7,9 +7,9 @@
 
         /*
 
-        Description: The tour class represents the route an ant uses to traverse the cities. It contains a vector of
-                        paths to store the legs of the journey. Functions allow other classes to perform basic
-                        vector operations on the route and indicate whether the tour is the best yet.
+        Description: 	The tour class represents the route an ant uses to traverse the cities. It contains a 
+        				vector of paths to store the legs of the journey. Functions allow other classes to 
+        				perform basic vector operations on the route and indicate whether the tour is the best yet.
         */
 
 import java.util.*;
@@ -20,65 +20,63 @@ public class Tour {
 
     //vector to store paths
     private Vector<Path> route;
-    private boolean best;
     double length;
+    private boolean best;
 
     //constructor takes no parameters, initializes route vector, sets best to false, and sets length to zero
-    public Tour(){
-
+    public Tour()
+    {
         route = new Vector<Path>();
-        best = false;
         length = 0;
+        best = false;
     }
 
-    public void add(Path p){
-
+    public void addPath(Path p)
+    {    	
         route.add(p);
-        length += p.getLength();
+        length = length + p.getLength();
     }
 
-    public Path get(int i){
-
+    public Path getPath(int i)
+    {
         return route.get(i);
-
+    }
+    
+    public int getSize()
+    {
+        return route.size();
     }
 
-    public void clear(){
+    public double getLength()
+    {
+        return length;
+    }
+    
+    //////////////////////////////////
 
+    public void clear()
+    {
         route.clear();
     }
 
-    public boolean isEmpty(){
-
+    public boolean isEmpty()
+    {
         return route.isEmpty();
     }
 
-    public boolean isBest(){
-
+    public boolean isBest()
+    {
         return best;
     }
-
-    public void markBest(){
-
+    
+    public void markBest()
+    {
         best = true;
     }
 
-      public void notBest(){
-
-        best = false;
+    public void notBest()
+    {
+    	best = false;
     }
-
-    public int size(){
-
-        return route.size();
-
-    }
-
-    public double getLength(){
-
-        return length;
-    }
-
-
 
 }

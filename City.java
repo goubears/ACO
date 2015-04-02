@@ -8,8 +8,8 @@
 
         /*
 
-        Description: The city class represents a city (vertex) on our graph. It stores the x and y coordinates and 
-                        a unique identifier. Functions include basic set and get functions for the variables.
+        Description: 	The city class represents a city (vertex) on our graph. It stores the x and y coordinates and 
+                     	a unique identifier. Functions include basic set and get functions for the variables.
 
         */
 
@@ -24,35 +24,24 @@ public class City {
     private int identifier;
 
     //constructor takes city coordinates as well as identifier
-    public City(double[] coords){
-        
-        identifier = (int) coords[0];
-        x = coords[1];
-        y = coords[2];
-
-    }
-
-    //other, slightly better looking constructor
-    public City(double xCoord, double yCoord, int index){
-
+    public City(double xCoord, double yCoord, int index)
+    {
         x = xCoord;
         y = yCoord;
         identifier = index;
     }
 
-
-    public double getX(){
-
+    public double getX()
+    {
          return x;
     }
-
-    public double getY(){
-
+    public double getY()
+    {
         return y;
     }
 
-    public int getIdentifier(){
-
+    public int getIdentifier()
+    {
         return identifier;
     }
 
