@@ -33,8 +33,8 @@ public class ElitistAnt {
     private static Tour bestSolution;
     private static double bestLength = Double.POSITIVE_INFINITY;
 
-    //time limit to stop algorithm. set at two minutes
-    private static final long TIME_LIMIT = 120000;
+    //time limit to stop algorithm. set at ten minutes
+    private static final long TIME_LIMIT = 600000;
 
     //random number generators
     private static Random rand = new Random();
