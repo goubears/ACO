@@ -92,6 +92,110 @@ public class ACO {
 		}
 	}
 
+	public static void runTestACS(){
+		PrintStream out = System.out;
+        PrintStream std = System.out;
+	    try
+	    {
+	        FileOutputStream fos = new FileOutputStream("resultsElitism.csv", true); 
+	        out = new PrintStream(fos);
+   		 	System.setOut(out);     
+	    }
+	    catch (FileNotFoundException ex)  
+	    {
+	    	System.out.println(ex.getMessage());
+	    }
+
+	    int runs = 10;
+
+	    //shares variables
+		ants = 20;
+		iterations = 50;
+		alpha = 1;
+		beta = 3.5;
+		rho = 0.1;
+
+		for(int i=0; i<4; i++){
+	    	switch (i){
+	    		case 0: 
+	    			fileName = "u2152.tsp";
+	    			file = new File(fileName);
+	    			optimum = 64253;
+	    			break;
+	    		case 1:
+	    			fileName = "fl3795.tsp";
+	    			file = new File(fileName);
+	    			optimum = 28772;
+	    			break;
+	    		case 2:
+	    			fileName = "fnl4461.tsp";
+	    			file = new File(fileName);
+	    			optimum = 182566;
+	    			break;
+	    		case 3:
+	    			fileName = "rl5934.tsp";
+	    			file = new File(fileName);
+	    			optimum = 556045;
+	    			break;
+	    		default:
+	    			System.out.printf("Error in file name.");
+	    			break;
+	    	}
+	    	System.out.printf("\nFile Name: %s\n", fileName);
+	    	readFile(file);
+
+	    	for(int j=0; j<3; j++){
+	    		switch (j){
+	    			case 0:
+	    				epsilon = 0.05;
+	    				break;
+	    			case 1:
+	    				epsilon = 0.1;
+	    				break;
+	    			case 2:
+	    				epsilon = 0.2;
+	    				break;
+	    			default:
+	    				System.out.printf("Error in epsilon.");
+	    				break;
+	    		}
+	    		System.out.printf("\nEpsilon: %f\n", epsilon);
+
+	    		for(int k=0; k<2; k++){
+	    			switch (k){
+	    				case 0:
+	    					qProb = 0.5;
+	    					break;
+	    				case 1:
+	    					qProb = 0.9;
+	    					break;
+	    				default:
+	    					System.out.println("Error in q probability.");
+	    					break;
+	    			}
+	    			System.out.printf("\nQ Probability: %f\n", qProb);
+
+	    			double avgLength = 0;
+	    			double avgTime = 0;
+	    			for(int l=0; l<runs; l++){
+	    				antCS.acs(fileName, optimum, place, ants, iterations, alpha, beta, rho, epsilon, qProb);
+	    				avgLength += antCS.getBestLength();
+						avgTime += (double)antCS.getTime();
+						System.setOut(std); 
+						float pComplete = (((float)l+1)/(float)runs)*100;
+						System.out.printf("%d%%\n", (int)pComplete);
+						System.setOut(out);
+	    			}
+	    			avgLength = avgLength/(double)runs;
+	    			avgTime = avgTime/(double)runs;
+	    			System.out.printf("\nAvgLength, AvgTime\n%f,   %f\n", avgLength, avgTime);
+	    		}
+	    	}
+	    	place.removeAllElements();
+	    }
+
+	}
+
 	public static void runTestElitism(){
 		PrintStream out = System.out;
         PrintStream std = System.out;
@@ -112,7 +216,6 @@ public class ACO {
 	    //file = new File(fileName);
 
 		//shares variables
-		algorithm = "e";
 		ants = 20;
 		iterations = 50;
 		alpha = 1;
@@ -184,7 +287,6 @@ public class ACO {
 	    		avgLength = avgLength/(double)runs;
 	    		avgTime = avgTime/(double)runs;
 	    		System.out.printf("\nAvgLength, AvgTime\n%f,   %f\n", avgLength, avgTime);
-
 	    	}
 	    	place.removeAllElements();
 	    }   
@@ -226,7 +328,7 @@ public class ACO {
 			System.exit(0);
 		}
 
-		System.out.printf("Best Length: %.0f, Time: %f, %f",output[0], output[1]);
+		System.out.printf("Best Length: %.0f, Time: %f",output[0], output[1]);
 		System.out.println();
 	}
 
