@@ -89,15 +89,16 @@ public class ACO {
 		else{
 			runTestElitism();
 			//runTestACS();
+			//runTestShared();
 		}
 	}
 
-	public static void runTestACS(){
+	public static void runTestShared(){
 		PrintStream out = System.out;
         PrintStream std = System.out;
 	    try
 	    {
-	        FileOutputStream fos = new FileOutputStream("resultsElitism.csv", true); 
+	        FileOutputStream fos = new FileOutputStream("resultsShared.csv", true); 
 	        out = new PrintStream(fos);
    		 	System.setOut(out);     
 	    }
@@ -106,9 +107,185 @@ public class ACO {
 	    	System.out.println(ex.getMessage());
 	    }
 
-	    int runs = 10;
+	   	elitism = 20; 					// placeholder
+	   	epsilon = 0.1;					// placeholder
+	   	qProb = 0.9;					// placeholder
 
-	    //shares variables
+
+	   	for(int i=0; i<4; i++){
+	    	switch (i){
+	    		case 0: 
+	    			fileName = "u2152.tsp";
+	    			file = new File(fileName);
+	    			optimum = 64253;
+	    			break;
+	    		case 1:
+	    			fileName = "fl3795.tsp";
+	    			file = new File(fileName);
+	    			optimum = 28772;
+	    			break;
+	    		case 2:
+	    			fileName = "fnl4461.tsp";
+	    			file = new File(fileName);
+	    			optimum = 182566;
+	    			break;
+	    		case 3:
+	    			fileName = "rl5934.tsp";
+	    			file = new File(fileName);
+	    			optimum = 556045;
+	    			break;
+	    		default:
+	    			System.out.printf("Error in file name.");
+	    			break;
+	    	}
+	    	System.out.printf("\nFile Name: %s\n", fileName);
+	    	readFile(file);
+	   	
+	   		for(int a=0; a<3; a++){
+	   			switch (a){
+	   				case 0:
+	   					ants = 10;
+	   					break;
+	   				case 1:
+	   					ants = 30;
+	   					break;
+	   				case 2:
+	   					ants = 50;
+	   					break;
+	   				default:
+	   					System.out.printf("Error in ants.");
+	   					break;
+	   			}
+	   			System.out.printf("Ants: %d", ants);
+
+	   			for(int b=0; b<2; b++){	
+	   				switch (b){				//get actual values later
+	   					case 0:
+	   						iterations = 50;
+	   						break;
+	   					case 1:
+	   						iterations = 100;
+	   						break;
+	   					default:
+	   						System.out.printf("Error in iterations.");
+	   						break;
+	   				}
+	   				System.out.printf("Iterations: %d", iterations);
+
+	   				for(int c=0; c<2; c++){
+	   					switch (c){				//get actual values later
+	   						case 0:
+	   							alpha = 0.8;
+	   							break;
+	   						case 1:
+	   							alpha = 1;
+	   							break;
+	   						default:
+	   							System.out.printf("Error in alpha.");
+	   							break;
+	   					}
+	   					System.out.printf("Alpha: %f", alpha);
+
+	   					for(int d=0; d<2; d++){
+	   						switch (d){				//get actual values later
+	   							case 0:
+	   								beta = 1;
+	   								break;
+	   							case 1:
+	   								alpha = 3.5;
+	   								break;
+	   							default:
+	   								System.out.printf("Error in beta.");
+	   								break;
+	   						}
+	   						System.out.printf("Beta: %f", beta);
+
+	   						for(int e=0; e<2; e++){
+	   							switch (e){				//get actual values later
+	   								case 0:
+	   									rho = 0.1;
+	   									break;
+	   								case 1:
+	   									rho  = 0.2;
+	   									break;
+	   								default:
+	   									System.out.printf("Error in rho .");
+	   									break;
+	   							}
+	   							System.out.printf("rho : %f", rho);
+
+	   							for(int f=0; f<2; f++){
+	   								switch (f){				//get actual values later
+	   									case 0:
+	   										System.out.printf("Elitist Ant System");
+	   										testRunsElitism();
+	   										break;
+	   									case 1:
+	   										System.out.printf("Ant Colony System");
+	   										testRunsACS();
+	   										break;
+	   									default:
+	   										System.out.printf("Error in algorithm.");
+	   										break;
+	   								}
+	   								System.out.printf("\nAvgLength, AvgTime\n%f,   %f\n", output[0], output[1]);
+		   						}
+		   					}
+	   					}
+	   				}
+	   			}
+	   		}
+	   		place.removeAllElements();
+	   	}
+	}
+
+
+	public static void testRunsElitism(){
+		int runs =5;
+		double avgLength = 0;
+	    double avgTime = 0;
+	    for(int l=0; l<runs; l++){
+	    	elite.elitistAnt(place, ants, elitism, alpha, beta, rho, iterations, fileName, optimum);
+	    	avgLength += elite.getBestLength();
+			avgTime += (double)elite.getDuration();
+	    }
+	    output[0] = avgLength/(double)runs;
+	 	output[1]= avgTime/(double)runs;
+	}
+
+
+	public static void testRunsACS(){
+		int runs = 5;
+		double avgLength = 0;
+	    double avgTime = 0;
+	    for(int l=0; l<runs; l++){
+	    	antCS.acs(fileName, optimum, place, ants, iterations, alpha, beta, rho, epsilon, qProb);
+	    	avgLength += antCS.getBestLength();
+			avgTime += (double)antCS.getTime();
+	    }
+	    output[0] = avgLength/(double)runs;
+	 	output[1] = avgTime/(double)runs;
+	}
+
+
+
+	public static void runTestACS(){
+		PrintStream out = System.out;
+        PrintStream std = System.out;
+	    try
+	    {
+	        FileOutputStream fos = new FileOutputStream("resultsACS.csv", true); 
+	        out = new PrintStream(fos);
+   		 	System.setOut(out);     
+	    }
+	    catch (FileNotFoundException ex)  
+	    {
+	    	System.out.println(ex.getMessage());
+	    }
+
+	    int runs = 5;
+
+	    //shares Variables
 		ants = 20;
 		iterations = 50;
 		alpha = 1;
@@ -210,14 +387,14 @@ public class ACO {
 	    	System.out.println(ex.getMessage());
 	    }
 
-	    int runs = 10;
+	    int runs = 5;
 
 	    //fileName = "u2152.tsp";
 	    //file = new File(fileName);
 
-		//shares variables
-		ants = 20;
-		iterations = 50;
+		//shares variables    			 		//change variables depending on the document
+		ants = 7;
+		iterations = 7;
 		alpha = 1;
 		beta = 3.5;
 		rho = 0.1;
@@ -291,6 +468,8 @@ public class ACO {
 	    	place.removeAllElements();
 	    }   
 	}
+
+
 
 	public static void runCommand(String[] arg){
 		file 		= new File(arg[0]);

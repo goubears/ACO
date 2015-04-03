@@ -34,7 +34,10 @@ public class ElitistAnt {
     private static double bestLength = Double.POSITIVE_INFINITY;
 
     //time limit to stop algorithm. set at five minutes
-    private static final long TIME_LIMIT = 300000;
+    private static final long TIME_LIMIT = 60000;
+    //5 minutes 300000
+
+
 
     //random number generators
     private static Random rand = new Random();
