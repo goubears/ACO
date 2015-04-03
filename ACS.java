@@ -47,6 +47,8 @@ public class ACS {
     private static double TAU; //initial pheromone concentration on the leg connecting 2 cities
     private static double EPSILON; //factor controlling "wearing away" of pheromones (typically e = 0.1)
     private static double Q_PROB; //probability that an ant will choose the best leg for the next leg of it's tour
+    private static int totalIterations;
+    private static long time;
 
     public static void acs(String fileName, double optimalLength, Vector<City> citiesVector, int numAnts, 
     		int iterations, double alpha, double beta, double rho, double epsilon, double qProb)
@@ -95,7 +97,7 @@ public class ACS {
         //START TOURS
         
         //send ants out on tours (find solutions and update) until either the optimum is found or time limit is reached
-        int totalIterations = 0;
+        totalIterations = 0;
         while ((totalIterations < NUM_ITERATIONS) && (System.currentTimeMillis()-startTime < TIME_LIMIT) && (bestLength > OPTIMAL_LENGTH))
         {
             //current best tour
@@ -236,27 +238,40 @@ public class ACS {
             //REPEAT UNTIL OPTIMAL FOUND
             totalIterations++;
             
-            System.out.println("iteration " +totalIterations+ ", current best length: " +bestLength);
+            //System.out.println("iteration " +totalIterations+ ", current best length: " +bestLength);
         }
         
         //DONE
         
         //print out our findings
-        System.out.println();
-        System.out.println("********** Ant Colony System Algorithm Results **********");
-        System.out.println();
-        System.out.println("Name of file: " + FILE_NAME);
-        System.out.println("Number of cities: " + NUM_CITIES);
-        System.out.println("Number of ants: " + NUM_ANTS);
-        System.out.println("Number of iterations: " + NUM_ITERATIONS);
-        System.out.println();
-        System.out.println("Length of shortest tour: " + bestLength);
+        // System.out.println();
+        // System.out.println("********** Ant Colony System Algorithm Results **********");
+        // System.out.println();
+        // System.out.println("Name of file: " + FILE_NAME);
+        // System.out.println("Number of cities: " + NUM_CITIES);
+        // System.out.println("Number of ants: " + NUM_ANTS);
+        // System.out.println("Number of iterations: " + NUM_ITERATIONS);
+        // System.out.println();
+        // System.out.println("Length of shortest tour: " + bestLength);
         
         endTime = System.currentTimeMillis();
-        System.out.println("This method took: " + ((endTime-startTime)/1000) + " seconds.");
-        System.out.println();
+        time = (endTime-startTime)/1000;
+        // System.out.println("This method took: " + (time) + " seconds.");
+        // System.out.println();
+    }
+
+    public static int getTotalIterations(){
+        return totalIterations;
+    }
+
+    public static double getBestLength(){
+        return bestLength;
     }
     
+    public static long getTime(){
+        return time;
+    }
+
     public static void calculateTAU()
     {    			
     	int antID = 1;

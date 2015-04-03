@@ -49,6 +49,7 @@ public class ACO {
 
 	//an instance of the elitism system
 	private static ElitistAnt elite;
+	private static ACS antCS;
 
 	//file Variables
 	private static BufferedReader reader = null;
@@ -74,6 +75,11 @@ public class ACO {
 	private static double epsilon;
 	private static double qProb;
 
+	//contains the output of the algorithms
+	private static double[] output = new double[3]; 
+	//0: total iterations
+	//1: best length 
+	//2: time in seconds
 
 	//main method
 	public static void main(String[] args) 
@@ -95,19 +101,46 @@ public class ACO {
 			
 			//ANDREW: add optimum into your args
 			elite.elitistAnt(place, ants, elitism, alpha, beta, rho, iterations, args[0], optimum);
+			output[0] = (double)elite.getTotalIterations();
+			output[1] = elite.getBestLength();
+			output[2] = (double)elite.getDuration();
 		}
 		else if(algorithm.equals("a"))
 		{
 			epsilon = Double.parseDouble(args[8]);	//double
 			qProb 	= Double.parseDouble(args[9]);	//double
 			
-			ACS.acs(args[0], optimum, place, ants, iterations, alpha, beta, rho, epsilon, qProb);
+			antCS.acs(args[0], optimum, place, ants, iterations, alpha, beta, rho, epsilon, qProb);
+			output[0] = (double)antCS.getTotalIterations();
+			output[1] = antCS.getBestLength();
+			output[2] = (double)antCS.getTime();
 		}
 		else
 		{ 
 			System.out.println("A valid algorithm name is needed.  e/a");
 			System.exit(0);
 		}
+
+		System.out.printf("%.0f, %f, %f",output[0], output[1], output[2]);
+		System.out.println();
+		//runTest();
+	}
+
+	public static void runTest(){
+		PrintStream out = System.out;
+        PrintStream std = System.out;
+	    try
+	    {
+	        FileOutputStream fos = new FileOutputStream("results.csv", true); 
+	        out = new PrintStream(fos);
+   		 	System.setOut(out);     
+	    }
+	    catch (FileNotFoundException ex)  
+	    {
+	    	System.out.println(ex.getMessage());
+	    }
+
+	    // System.out.printf("%.0f, %f, %f",output[0], output[1], output[2]);
 	}
 
 

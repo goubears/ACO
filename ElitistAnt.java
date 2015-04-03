@@ -50,6 +50,8 @@ public class ElitistAnt {
     private static double BETA;
     private static double ROH;
     private static double PERCENT_ABOVE_OPTIMUM = 0.0;
+    private static int totalIterations;
+    private static long duration;
 
     public static void elitistAnt(Vector<City> citiesVector, int numAnts, double elitismFactor, 
     		double alpha, double beta, double roh, int iterations, String fileName, double optimum)
@@ -77,7 +79,7 @@ public class ElitistAnt {
         //start timer
         long startTime = System.currentTimeMillis();
         long endTime = 0;
-        long duration = 0;
+        duration = 0;
 
         //CREATE PATHS VECTOR AND 2D ARRAY. I LIKE CAPS
         paths = new Path[cities.size()][cities.size()];
@@ -99,7 +101,7 @@ public class ElitistAnt {
         numPaths = counter;
 
         //continue sending out ants (finding solutions and updating) until find optimum or reach time limit
-        int totalIterations = 0;
+        totalIterations = 0;
         while (totalIterations < NUM_ITERATIONS && duration < TIME_LIMIT && bestLength > TARGET_OPTIMUM)
         {
             //System.out.println("Entered while loop.");
@@ -245,7 +247,7 @@ public class ElitistAnt {
             //System.out.println(totalIterations);
             totalIterations++;
             
-            System.out.println("iteration " +totalIterations+ ", current best length: " +bestLength);
+            //System.out.println("iteration " +totalIterations+ ", current best length: " +bestLength);
 
             //System.out.println("Current best: " + currBestLength);
 
@@ -253,37 +255,49 @@ public class ElitistAnt {
 
             //update time
             endTime = System.currentTimeMillis();
-            duration = (endTime - startTime);
+            duration = (endTime - startTime)/1000;
 
             //break;
         }
 
         //print out our findings
-        System.out.println("\n******************* Elitist Ant Algorithm Results *******************");
-        System.out.println("Please note that we have added a consequence for failure. Any contact with the chamber floor will result in an 'unsatisfactory' mark on your official testing record, followed by death. Good luck!");
+        // System.out.println("\n******************* Elitist Ant Algorithm Results *******************");
+        // System.out.println("Please note that we have added a consequence for failure. Any contact with the chamber floor will result in an 'unsatisfactory' mark on your official testing record, followed by death. Good luck!");
         //we'll need to print out the name of the file we are reading. This should come from the user-input parsing part...maybe make it a global variable?
-        System.out.println("Name of file: " + FILE_NAME);
+        // System.out.println("Name of file: " + FILE_NAME);
 
         //same for NUM_VARIABLES and number of clauses
-        System.out.println("Number of cities: " + NUM_CITIES);
-        System.out.println("Number of ants: " + NUM_ANTS);
+        // System.out.println("Number of cities: " + NUM_CITIES);
+        // System.out.println("Number of ants: " + NUM_ANTS);
         
-        if (bestLength < TARGET_OPTIMUM)
-        {
-            System.out.println("Target optimum reached early.");   
-        }    
+        // if (bestLength < TARGET_OPTIMUM)
+        // {
+        //     System.out.println("Target optimum reached early.");   
+        // }    
         
-        if (duration > TIME_LIMIT)
-        {
-            System.out.println("Time limit reached.");
-        }
+        // if (duration > TIME_LIMIT)
+        // {
+        //     System.out.println("Time limit reached.");
+        // }
        
-        System.out.println("Number of iterations: " + totalIterations);
+        // System.out.println("Number of iterations: " + totalIterations);
         
         //we know how many clauses we have satisfied
-        System.out.println("Length of shortest path: " + bestLength);
+        // System.out.println("Length of shortest path: " + bestLength);
         
-        System.out.println("\nThis method took: " + duration + " milliseconds.");
+        // System.out.println("\nThis method took: " + duration + " milliseconds.");
+    }
+
+    public static int getTotalIterations(){
+        return totalIterations;
+    }
+
+    public static double getBestLength(){
+        return bestLength;
+    }
+
+    public static long getDuration(){
+        return duration;
     }
 
     //method to fill temp cities vector. DON'T GET RID OF ME! I AM A TIMELSS RELIC OF THE PAST
