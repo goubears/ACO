@@ -49,7 +49,7 @@ public class ACS {
     private static double Q_PROB; //probability that an ant will choose the best leg for the next leg of it's tour
 
     public static void acs(String fileName, double optimalLength, Vector<City> citiesVector, int numAnts, 
-    		int iterations, double alpha, double beta, double rho, double tau, double epsilon, double qProb)
+    		int iterations, double alpha, double beta, double rho, double epsilon, double qProb)
     {
         //set up variables
         FILE_NAME = fileName;
@@ -61,7 +61,6 @@ public class ACS {
         ALPHA = alpha;
         BETA = beta;
         RHO = rho;
-        TAU = tau;
         EPSILON = epsilon;
         Q_PROB = qProb;
 
@@ -76,19 +75,28 @@ public class ACS {
         {
             for (int j=i+1; j<cities.size(); j++)
             {
-                Path newPath = new Path(cities.get(i), cities.get(j), counter, TAU);
+                Path newPath = new Path(cities.get(i), cities.get(j), counter, 0);
                 pathsVector.add(newPath);
                 paths[i][j] = newPath;
                 paths[j][i] = newPath;
                 counter++;
             }
         }
+        
+        calculateTAU();
+        
+        //initalize pheromone level
+        for (int i=0; i<pathsVector.size(); i++)
+        {
+        	Path path = pathsVector.get(i); 
+        	path.setPheromone(TAU);
+        }
 
         //START TOURS
         
         //send ants out on tours (find solutions and update) until either the optimum is found or time limit is reached
         int totalIterations = 0;
-        while ((totalIterations < NUM_ITERATIONS) && (System.currentTimeMillis()-startTime <= TIME_LIMIT))
+        while ((totalIterations < NUM_ITERATIONS) && (System.currentTimeMillis()-startTime < TIME_LIMIT) && (bestLength > OPTIMAL_LENGTH))
         {
             //current best tour
         	Tour currentBest = new Tour();
@@ -200,10 +208,11 @@ public class ACS {
             //check if a shorter tour has been found
             for (int i=0; i<NUM_ANTS; i++)
             {
-            	if (arrayOfAnts[i].getLength() < bestLength)
+            	Tour test = arrayOfAnts[i].getTour();
+            	if (test.getLength() < bestLength)
             	{
-            		bestLength = arrayOfAnts[i].getLength();
-            		bestSolution = arrayOfAnts[i].getTour();
+            		bestLength = test.getLength();
+            		bestSolution = test;
             	}
             }
             
@@ -226,6 +235,8 @@ public class ACS {
             
             //REPEAT UNTIL OPTIMAL FOUND
             totalIterations++;
+            
+            System.out.println("iteration " +totalIterations+ ", current best length: " +bestLength);
         }
         
         //DONE
@@ -244,6 +255,47 @@ public class ACS {
         endTime = System.currentTimeMillis();
         System.out.println("This method took: " + ((endTime-startTime)/1000) + " seconds.");
         System.out.println();
+    }
+    
+    public static void calculateTAU()
+    {    			
+    	int antID = 1;
+    	int startingCity = rand.nextInt(cities.size() - 1); //choose random starting city
+    	Ant ant = new Ant(antID, startingCity, NUM_CITIES);
+    	
+    	int numberOfCitiesVisited = 1;
+    	boolean[] vistiedCityAlready = new boolean[NUM_CITIES]; 
+    	while (numberOfCitiesVisited < NUM_CITIES)
+        {   		
+    		vistiedCityAlready = ant.getVisitedCities();
+    		
+    		//move to closest city 
+			int closestCity = -1;
+	    	double closestCityValue = Double.POSITIVE_INFINITY;
+		
+			//loop through all cities the ant hasn't visited yet to find the closest one
+			for (int i=0; i<cities.size(); i++)
+			{
+				if (vistiedCityAlready[i] == false)
+				{            					
+					Path possiblePath = paths[ant.getCurrentCity()][i];
+					if (possiblePath.getLength() < closestCityValue)
+					{
+						closestCityValue = possiblePath.getLength();
+						closestCity = i;
+					}
+				}
+			}
+			//move ant to new city
+			ant.updateAnt(closestCity, paths[ant.getCurrentCity()][closestCity]);
+			
+			numberOfCitiesVisited++;	
+        }
+    	//get tour length
+    	Tour nearestNeighborTour = ant.getTour();
+    	double length = nearestNeighborTour.getLength();
+    	
+    	TAU = 1/(NUM_ANTS*length);
     }
 
 }

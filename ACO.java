@@ -99,10 +99,9 @@ public class ACO {
 		else if(algorithm.equals("a"))
 		{
 			epsilon = Double.parseDouble(args[8]);	//double
-			tau 	= Double.parseDouble(args[9]);	//double
-			qProb 	= Double.parseDouble(args[10]);	//double
+			qProb 	= Double.parseDouble(args[9]);	//double
 			
-			ACS.acs(args[0], optimum, place, ants, iterations, alpha, beta, rho, tau, epsilon, qProb);
+			ACS.acs(args[0], optimum, place, ants, iterations, alpha, beta, rho, epsilon, qProb);
 		}
 		else
 		{ 

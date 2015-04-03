@@ -86,7 +86,7 @@ public class ElitistAnt {
         {
             for (int j = i + 1; j < cities.size(); j++)
             {
-                Path newPath = new Path(cities.get(i), cities.get(j), counter, 0.2);
+                Path newPath = new Path(cities.get(i), cities.get(j), counter, 0.05);
                 pathsVector.add(newPath);
                 paths[i][j] = newPath;
                 paths[j][i] = newPath;
@@ -100,7 +100,7 @@ public class ElitistAnt {
 
         //continue sending out ants (finding solutions and updating) until find optimum or reach time limit
         int totalIterations = 0;
-        while (totalIterations < NUM_ITERATIONS && duration <= TIME_LIMIT && bestLength > TARGET_OPTIMUM)
+        while (totalIterations < NUM_ITERATIONS && duration < TIME_LIMIT && bestLength > TARGET_OPTIMUM)
         {
             //System.out.println("Entered while loop.");
 
@@ -244,6 +244,8 @@ public class ElitistAnt {
 
             //System.out.println(totalIterations);
             totalIterations++;
+            
+            System.out.println("iteration " +totalIterations+ ", current best length: " +bestLength);
 
             //System.out.println("Current best: " + currBestLength);
 

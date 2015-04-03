@@ -34,7 +34,7 @@ public class Path {
         b = two;
         identifier = index;
         pheromone = pheromoneLevel;
-        length = Math.sqrt((a.getX() - b.getX())*(a.getX() - b.getX()) + (a.getY() - b.getY())*(a.getY() - b.getY()));
+        length = Math.sqrt(Math.pow((a.getX() - b.getX()), 2) + Math.pow((a.getY() - b.getY()), 2));
     }
 
     public double getPheromone()
