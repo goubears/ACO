@@ -67,14 +67,6 @@ public class ElitistAnt {
         NUM_ITERATIONS = iterations;
         FILE_NAME = fileName;
         TARGET_OPTIMUM = (double)optimum * (1 + PERCENT_ABOVE_OPTIMUM);
-        //System.out.println("Target optimum: " + TARGET_OPTIMUM);
-    //}
-
-    //public static void main(String[] args){
-
-        // //FILL TEST VECTOR WITH RANDOM CITIES. REMOVE LATER
-        //generateCities();
-        // System.out.println("Number of cities: " + cities.size());
 
         //start timer
         long startTime = System.currentTimeMillis();
@@ -93,7 +85,7 @@ public class ElitistAnt {
                 paths[i][j] = newPath;
                 paths[j][i] = newPath;
                 counter++;
-                //System.out.println("City one: " + i + " City two: " + j + " Identifier: " + counter);
+                
             }
         }
 
@@ -116,7 +108,7 @@ public class ElitistAnt {
                 //choose random starting city
                 int startingCity = rand.nextInt(cities.size() - 1);
                 int currentCity = startingCity;
-                //System.out.println(currentCity);
+                
 
                 //create array to track which cities we have visited, counter to track total number
                 int numVisited = 1;
@@ -142,9 +134,6 @@ public class ElitistAnt {
                            double currNumerator = (Math.pow(possiblePath.getPheromone(), ALPHA) * Math.pow(1 / possiblePath.getLength(), BETA));
                            denominator += currNumerator;
                            numerators[j] = currNumerator;
-                           //System.out.println("Current city: " + currentCity + "Possible city: " + j);
-                           // System.out.println("Local pheromone times length: " + currNumerator);
-                           // System.out.println("Total pheromone: " + denominator + "\n"); 
                         }
                     }
 
@@ -156,19 +145,16 @@ public class ElitistAnt {
                         if (visitedCities[j] == false)
                         {
                             probabilities[j] = numerators[j] / denominator;
-                            //System.out.println("Probability for city " + j + ": " + probabilities[j]);
                             testCounter += probabilities[j];
                         }
                     }
-                    //System.out.println("Total: " + testCounter);
-
+                    
                     //use probabilities to chose next city, mark it as visited
                     double randomDouble = rand.nextDouble();
                     double probabilitySum = 0;
                     for (int j = 0; j < cities.size(); j++)
                     {
-                        //System.out.println("Current city: " + j + " Probability sum: " + probabilitySum + " Current Probability: " + probabilities[j] + "Random double: " + randomDouble);
-
+                        
                         if (visitedCities[j] == false)
                         {
                             //if chosen, add path to tour and update tracking variables. MWAHAHAHA IT WORKS! 
@@ -178,10 +164,6 @@ public class ElitistAnt {
                                 currentCity = j;
                                 visitedCities[j] = true;
                                 numVisited++;
-                                // System.out.println("Path chosen.");
-                                //System.out.println("Tour size: " + route.size());
-                                //System.out.println("Tour length: " + route.getLength());
-                                // System.out.println("Cities visited: " + numVisited);
                                 break;
                             }
                             else
@@ -192,14 +174,10 @@ public class ElitistAnt {
                     }                    
                 }
 
-                //System.out.println("Tour length: " + route.getLength());
                 //add new route to solutions vector, check if it's best so far
                 solutions.add(route);
                 if (route.getLength() < currBestLength)
                 {    
-                    //System.out.println("Old best: " + currBestLength);
-                    //System.out.println("New Best: " + route.getLength());
-                    
                     //update old best to new
                     currBest.notBest();
                     currBest = route;
@@ -231,26 +209,18 @@ public class ElitistAnt {
             for (int i = 0; i < pathsVector.size(); i++)
             {
                 pathsVector.get(i).updatePheromone(ROH, updates[pathsVector.get(i).getIdentifier()]);
-                //System.out.println("Update for path " + pathsVector.get(i).getIdentifier() + ": " + updates[pathsVector.get(i).getIdentifier()] + " Total pheromone: " + pathsVector.get(i).getPheromone());
+ 
             }
 
             //check if current best is best so far
             if (currBestLength < bestLength)
             {
-                //System.out.println("Old best: " + bestLength);
-                //System.out.println("New best: " + currBestLength);
 
                 bestLength = currBestLength;
                 bestSolution = currBest;
             }
 
-            //System.out.println(totalIterations);
             totalIterations++;
-            
-            //System.out.println("iteration " +totalIterations+ ", current best length: " +bestLength);
-
-            //System.out.println("Current best: " + currBestLength);
-
             solutions.clear();
 
             //update time
@@ -307,7 +277,6 @@ public class ElitistAnt {
         {
             City newCity = new City(rand.nextInt(100), rand.nextInt(100), i);
             cities.add(newCity);
-            //System.out.println("X: " + newCity.getX() + " Y: " + newCity.getY() + " Identifier: " + newCity.getIdentifier());
         }
     }
 
