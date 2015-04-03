@@ -44,12 +44,24 @@ public class Path {
     
     public void setPheromone(double updatedAmount)
     {
-    	pheromone = updatedAmount;
+    	if (updatedAmount > 0)
+    	{
+    		pheromone = updatedAmount;
+    	}
+    	else
+    	{
+    		pheromone = 0;
+    	}
+    	
     }
 
     public void updatePheromone(double rowe, double update)
     {
         pheromone = (1 - rowe)*pheromone + update;
+        if (pheromone < 0)
+    	{
+    		pheromone = 0;
+    	}
     }
 
     public City getA()
