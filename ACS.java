@@ -22,19 +22,19 @@ public class ACS {
 
 	//vectors for storing cities and paths between cities
 	private static Vector<City> cities;
-    private static Vector<Path> pathsVector = new Vector<Path>();
+    private static Vector<Path> pathsVector;
     private static Path[][] paths;
     
     //variables for storing best solution
-    private static Tour bestSolution = new Tour();
+    private static Tour bestSolution;
     private static double bestLength = Double.POSITIVE_INFINITY;
 
-    //time limit to stop algorithm (set at five minutes)
+    //time limit to stop algorithm (set at three minutes) (ms)
     
-    private static final long TIME_LIMIT = 60000;
-    //5 minutes: 300000;
+    private static final long TIME_LIMIT = 180000;
+
     //random number generator
-    private static Random rand = new Random();
+    private static Random rand;
 
     //named constants assigned after receiving parameters
     private static String FILE_NAME;
@@ -53,7 +53,13 @@ public class ACS {
 
     public static void acs(String fileName, double optimalLength, Vector<City> citiesVector, int numAnts, 
     		int iterations, double alpha, double beta, double rho, double epsilon, double qProb)
-    {
+    {   
+
+        pathsVector = new Vector<Path>();
+        bestLength = Double.POSITIVE_INFINITY;
+        bestSolution = new Tour();
+        rand = new Random();
+
         //set up variables
         FILE_NAME = fileName;
         OPTIMAL_LENGTH = optimalLength;
@@ -83,6 +89,9 @@ public class ACS {
                 paths[i][j] = newPath;
                 paths[j][i] = newPath;
                 counter++;
+
+                //A
+                newPath = null;
             }
         }
         
@@ -116,6 +125,9 @@ public class ACS {
             	
             	Ant ant = new Ant(antID, startingCity, NUM_CITIES);
             	arrayOfAnts[antID] = ant;
+
+                //A 
+                ant = null;
             }
             
             //MOVE ANTS
@@ -198,6 +210,9 @@ public class ACS {
     				Path traversedPath = paths[currentCity][newCity];
     				double newPheromone = (((1-EPSILON)*traversedPath.getPheromone())+(EPSILON*TAU));
     				traversedPath.setPheromone(newPheromone);
+
+                    //A
+                    vistiedCityAlready = null;
             	}
             	
             	//REPEAT UNTIL ALL CITIES VISITED
@@ -239,6 +254,10 @@ public class ACS {
             //REPEAT UNTIL OPTIMAL FOUND
             totalIterations++;
             
+            //A
+            currentBest = null;
+            arrayOfAnts = null;
+
             //System.out.println("iteration " +totalIterations+ ", current best length: " +bestLength);
         }
         
@@ -259,6 +278,13 @@ public class ACS {
         time = (endTime-startTime)/1000;
         // System.out.println("This method took: " + (time) + " seconds.");
         // System.out.println();
+
+        //A
+        paths = null;
+        pathsVector = null;
+        bestSolution = null;
+        rand = null;
+
     }
 
     public static int getTotalIterations(){
@@ -312,6 +338,11 @@ public class ACS {
     	double length = nearestNeighborTour.getLength();
     	
     	TAU = 1/(NUM_ANTS*length);
+
+        //A 
+        ant = null;
+        vistiedCityAlready = null;
+
     }
 
 }

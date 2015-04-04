@@ -23,8 +23,8 @@ import java.util.Random;
 public class ElitistAnt {
 	
     //Vectors and arrays for storing tours the ants make and paths between cities
-    private static Vector<Tour> solutions = new Vector<Tour>();
-    private static Vector<Path> pathsVector = new Vector<Path>();
+    private static Vector<Tour> solutions;
+    private static Vector<Path> pathsVector;
     private static Path[][] paths;
     private static Vector<City> cities;
     private static int numPaths;
@@ -33,20 +33,17 @@ public class ElitistAnt {
     private static Tour bestSolution;
     private static double bestLength = Double.POSITIVE_INFINITY;
 
-    //time limit to stop algorithm. set at five minutes
-    private static final long TIME_LIMIT = 60000;
-    //5 minutes 300000
-
-
+    //time limit to stop algorithm. set at three minutes (ms)
+    private static final long TIME_LIMIT = 180000;
 
     //random number generators
-    private static Random rand = new Random();
+    private static Random rand;
 
     //named constants assigned upon receiving parameters
     private static int NUM_ANTS;
     private static String FILE_NAME;
     private static double ELITISM_FACTOR;
-    private static double TARGET_OPTIMUM = 300;
+    private static double TARGET_OPTIMUM;
     private static int NUM_CITIES;
     private static int NUM_ITERATIONS;
     private static double ALPHA;
@@ -60,6 +57,12 @@ public class ElitistAnt {
     		double alpha, double beta, double roh, int iterations, String fileName, double optimum)
     {
         //set up variables
+
+        solutions = new Vector<Tour>();
+        pathsVector = new Vector<Path>();
+        rand = new Random();
+        bestLength = Double.POSITIVE_INFINITY;
+
         cities = citiesVector;
         NUM_ANTS = numAnts;
         ELITISM_FACTOR = elitismFactor;
@@ -89,6 +92,8 @@ public class ElitistAnt {
                 paths[j][i] = newPath;
                 counter++;
                 
+                //A  
+                newPath=null; 
             }
         }
 
@@ -97,7 +102,7 @@ public class ElitistAnt {
 
         //continue sending out ants (finding solutions and updating) until find optimum or reach time limit
         totalIterations = 0;
-        while (totalIterations < NUM_ITERATIONS && duration < TIME_LIMIT && bestLength > TARGET_OPTIMUM)
+        while ((totalIterations < NUM_ITERATIONS) && (duration*1000 < TIME_LIMIT) && (bestLength > TARGET_OPTIMUM))
         {
             //System.out.println("Entered while loop.");
 
@@ -174,7 +179,12 @@ public class ElitistAnt {
                                 probabilitySum += probabilities[j];
                             }
                         }
-                    }                    
+                    }    
+
+                    //A
+                    numerators = null;
+                    probabilities = null;
+
                 }
 
                 //add new route to solutions vector, check if it's best so far
@@ -187,6 +197,10 @@ public class ElitistAnt {
                     currBestLength = route.getLength();
                     currBest.markBest();
                 }
+
+                //A
+                visitedCities = null;
+                route = null;
             }
 
             //update pheromone levels according to elitism equations
@@ -215,6 +229,9 @@ public class ElitistAnt {
  
             }
 
+            //A
+            updates = null;
+
             //check if current best is best so far
             if (currBestLength < bestLength)
             {
@@ -229,6 +246,10 @@ public class ElitistAnt {
             //update time
             endTime = System.currentTimeMillis();
             duration = (endTime - startTime)/1000;
+
+            //A
+            currBest = null;
+
 
             //break;
         }
@@ -259,6 +280,14 @@ public class ElitistAnt {
         // System.out.println("Length of shortest path: " + bestLength);
         
         // System.out.println("\nThis method took: " + duration + " milliseconds.");
+
+
+
+        //A
+        solutions = null;
+        pathsVector = null;
+        rand = null;
+        paths = null;
     }
 
     public static int getTotalIterations(){
@@ -280,6 +309,9 @@ public class ElitistAnt {
         {
             City newCity = new City(rand.nextInt(100), rand.nextInt(100), i);
             cities.add(newCity);
+
+            //A
+            newCity = null;
         }
     }
 

@@ -1,46 +1,16 @@
-/*
-Tests:
-You should implement and test: 
-• Elitist Ant System, and
-• Ant Colony System.
+       
+		/****************************************
+         *                                      *
+         *               ACO class              *
+         *              Adela Yang              *
+         *                                      *
+         ****************************************/
 
-Parameters:
-Your code should allow you to vary the following parameters:
-• the number of ants,
-• the number iterations,
-• α, the degree of influence of the pheromone component,
-• β, the degree of influence of the heuristic component,
-• ρ, the pheromone evaporation factor,
-• e, the elitism factor in Elitist Ant System, and
-• the factors controlling “wearing away” of pheromones in Ant Colony System (ε and τ0), and
-• q0, the probability in Ant Colony System that an ant will choose the best leg for the next leg of the tour it is constructing, instead of choosing probabilistically.
-
-Termination conditions:
-Given the kinds of tests I want you to run (see below), you will want to write your coder so that a run can be terminated:
-• after a maximum number of iterations is reached, or
-• after a tour has been found that is no more than a specified percentage over the
-optimal (0.0 would mean you will not settle for anything less than the optimal), or
-• both, whichever comes first.
-or time elapsed
-
-Reading in Files:
-Problem files begin with some lines that provide information about the problem. 
-In the example below: 
-the problem name, 
-a comment about the origin of the problem, 
-the type of problem, 
-how many cities, 
-what type of TSP it is (in this example, a 2-d map using Euclidean distances), 
-and a line specifying the beginning of the coordinates section, which is a list of coordinates of the cities (ending with EOF). 
-You will need to calculate distances.
-
-Testing Ranges:
-You’ll want to use smaller problems to debug your code, but I want you to conduct tests on at least one problem in each of the following ranges of problem size: 
-2,000-2,999 cities, 
-3,000-3,999 cities, 
-4,000-4,999 cities, and 
-5,000-5,999 cities. 
-*/
+        /*
+        
+        Description:    This class is the main class that calls the ACS and Elitist Ant Algorithm. 
+        				The script for running the tests is also available here.         
+        */
 
 import java.io.*;
 import java.util.*;
@@ -87,9 +57,9 @@ public class ACO {
 			runCommand(args);
 		}
 		else{
-			runTestElitism();
+			//runTestElitism();
 			//runTestACS();
-			//runTestShared();
+			runTestShared();
 		}
 	}
 
@@ -108,8 +78,8 @@ public class ACO {
 	    }
 
 	   	elitism = 20; 					// placeholder
-	   	epsilon = 0.1;					// placeholder
-	   	qProb = 0.9;					// placeholder
+	   	// epsilon = 0.1;					// placeholder
+	   	// qProb = 0.9;					// placeholder
 
 
 	   	for(int i=0; i<4; i++){
@@ -141,39 +111,36 @@ public class ACO {
 	    	System.out.printf("\nFile Name: %s\n", fileName);
 	    	readFile(file);
 	   	
-	   		for(int a=0; a<3; a++){
+	   		for(int a=0; a<2; a++){
 	   			switch (a){
 	   				case 0:
-	   					ants = 10;
+	   					ants = 3;
 	   					break;
 	   				case 1:
-	   					ants = 30;
-	   					break;
-	   				case 2:
-	   					ants = 50;
+	   					ants = 10;
 	   					break;
 	   				default:
 	   					System.out.printf("Error in ants.");
 	   					break;
 	   			}
-	   			System.out.printf("Ants: %d", ants);
+	   			System.out.printf("\nAnts: %d\n", ants);
 
 	   			for(int b=0; b<2; b++){	
-	   				switch (b){				//get actual values later
+	   				switch (b){				
 	   					case 0:
-	   						iterations = 50;
+	   						iterations = 3;
 	   						break;
 	   					case 1:
-	   						iterations = 100;
+	   						iterations = 10;
 	   						break;
 	   					default:
 	   						System.out.printf("Error in iterations.");
 	   						break;
 	   				}
-	   				System.out.printf("Iterations: %d", iterations);
+	   				System.out.printf("\nIterations: %d\n", iterations);
 
 	   				for(int c=0; c<2; c++){
-	   					switch (c){				//get actual values later
+	   					switch (c){				
 	   						case 0:
 	   							alpha = 0.8;
 	   							break;
@@ -184,7 +151,7 @@ public class ACO {
 	   							System.out.printf("Error in alpha.");
 	   							break;
 	   					}
-	   					System.out.printf("Alpha: %f", alpha);
+	   					System.out.printf("\nAlpha: %f\n", alpha);
 
 	   					for(int d=0; d<2; d++){
 	   						switch (d){				//get actual values later
@@ -192,13 +159,13 @@ public class ACO {
 	   								beta = 1;
 	   								break;
 	   							case 1:
-	   								alpha = 3.5;
+	   								beta = 3.5;
 	   								break;
 	   							default:
 	   								System.out.printf("Error in beta.");
 	   								break;
 	   						}
-	   						System.out.printf("Beta: %f", beta);
+	   						System.out.printf("\nBeta: %f\n", beta);
 
 	   						for(int e=0; e<2; e++){
 	   							switch (e){				//get actual values later
@@ -206,42 +173,45 @@ public class ACO {
 	   									rho = 0.1;
 	   									break;
 	   								case 1:
-	   									rho  = 0.2;
+	   									rho = 0.2;
 	   									break;
 	   								default:
-	   									System.out.printf("Error in rho .");
+	   									System.out.printf("Error in rho.");
 	   									break;
 	   							}
-	   							System.out.printf("rho : %f", rho);
+	   							System.out.printf("\nRho : %f\n", rho);
 
-	   							for(int f=0; f<2; f++){
-	   								switch (f){				//get actual values later
-	   									case 0:
-	   										System.out.printf("Elitist Ant System");
+	   							// for(int f=0; f<2; f++){
+	   							// 	switch (f){				//get actual values later
+	   							// 		case 0:
+	   										System.out.printf("\nElitist Ant System\n");
 	   										testRunsElitism();
-	   										break;
-	   									case 1:
-	   										System.out.printf("Ant Colony System");
-	   										testRunsACS();
-	   										break;
-	   									default:
-	   										System.out.printf("Error in algorithm.");
-	   										break;
-	   								}
+	   										//break;
+	   									// case 1:
+	   									// 	System.out.printf("\nAnt Colony System\n");
+	   									// 	testRunsACS();
+	   									// 	break;
+	   									// default:
+	   									// 	System.out.printf("Error in algorithm.");
+	   									// 	break;
+	   								//}
 	   								System.out.printf("\nAvgLength, AvgTime\n%f,   %f\n", output[0], output[1]);
-		   						}
+		   						//}
 		   					}
 	   					}
 	   				}
 	   			}
 	   		}
-	   		place.removeAllElements();
+
+	   		//A
+	    	place = null;
+	    	place = new Vector<City>();
 	   	}
 	}
 
 
 	public static void testRunsElitism(){
-		int runs =5;
+		int runs = 3;
 		double avgLength = 0;
 	    double avgTime = 0;
 	    for(int l=0; l<runs; l++){
@@ -255,7 +225,7 @@ public class ACO {
 
 
 	public static void testRunsACS(){
-		int runs = 5;
+		int runs = 3;
 		double avgLength = 0;
 	    double avgTime = 0;
 	    for(int l=0; l<runs; l++){
@@ -283,11 +253,11 @@ public class ACO {
 	    	System.out.println(ex.getMessage());
 	    }
 
-	    int runs = 5;
+	    int runs = 3;
 
 	    //shares Variables
-		ants = 20;
-		iterations = 50;
+		ants = 7;
+		iterations = 5;
 		alpha = 1;
 		beta = 3.5;
 		rho = 0.1;
@@ -321,15 +291,12 @@ public class ACO {
 	    	System.out.printf("\nFile Name: %s\n", fileName);
 	    	readFile(file);
 
-	    	for(int j=0; j<3; j++){
+	    	for(int j=0; j<2; j++){
 	    		switch (j){
 	    			case 0:
-	    				epsilon = 0.05;
-	    				break;
-	    			case 1:
 	    				epsilon = 0.1;
 	    				break;
-	    			case 2:
+	    			case 1:
 	    				epsilon = 0.2;
 	    				break;
 	    			default:
@@ -368,10 +335,14 @@ public class ACO {
 	    			System.out.printf("\nAvgLength, AvgTime\n%f,   %f\n", avgLength, avgTime);
 	    		}
 	    	}
-	    	place.removeAllElements();
-	    }
 
+	    	//A
+	    	place = null;
+	    	place = new Vector<City>();
+	    }
 	}
+
+
 
 	public static void runTestElitism(){
 		PrintStream out = System.out;
@@ -387,21 +358,14 @@ public class ACO {
 	    	System.out.println(ex.getMessage());
 	    }
 
-	    int runs = 5;
+	    int runs = 3;
 
-	    //fileName = "u2152.tsp";
-	    //file = new File(fileName);
-
-		//shares variables    			 		//change variables depending on the document
+		//shared variables    			 		//change variables depending on the document
 		ants = 7;
-		iterations = 7;
+		iterations = 5;
 		alpha = 1;
 		beta = 3.5;
 		rho = 0.1;
-		//optimum = 64253;
-
-		//elitist ant variables
-		//elitism = 10;
 
 		 //first set of test to optimize the specialized parameters of elitist and acs
 	    for(int i=0; i<4; i++){
@@ -465,7 +429,10 @@ public class ACO {
 	    		avgTime = avgTime/(double)runs;
 	    		System.out.printf("\nAvgLength, AvgTime\n%f,   %f\n", avgLength, avgTime);
 	    	}
-	    	place.removeAllElements();
+
+	    	//A
+	    	place = null;
+	    	place = new Vector<City>();
 	    }   
 	}
 
@@ -487,7 +454,6 @@ public class ACO {
 		{
 			elitism = Double.parseDouble(arg[8]);	//double
 			
-			//ANDREW: add optimum into your args
 			elite.elitistAnt(place, ants, elitism, alpha, beta, rho, iterations, arg[0], optimum);
 			output[0] = elite.getBestLength();
 			output[1] = (double)elite.getDuration();
@@ -545,10 +511,16 @@ public class ACO {
 
 					City town = new City(xCoord, yCoord, identifier);
 					place.add(town);
+
+					//A
+					town = null;
 				}
 			}
 
 			reader.close();
+
+			//A
+			reader = null;
 		} 
 		catch (Exception e) 
 		{

@@ -31,7 +31,7 @@ public class Ant {
 		visitedCities = new boolean[totalNumberOfCities];
 		visitedCities[currentCity] = true;
 		totalDistanceTaveled = 0;
-		Tour route = new Tour();
+		route = new Tour();
 	}
 	
 	//update ant variables after ant moves to new city
