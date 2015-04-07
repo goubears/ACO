@@ -1,0 +1,220 @@
+
+File Name: d2103.tsp
+
+Ants: 20
+
+Alpha: 0.800000
+
+Beta: 1.000000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+1976427.462905,   481.666667
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+1963638.575592,   482.333333
+
+Beta: 3.500000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+157707.157195,   485.000000
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+110158.521374,   480.666667
+
+Alpha: 1.000000
+
+Beta: 1.000000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+1983397.681535,   488.000000
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+1933501.854492,   488.000000
+
+Beta: 3.500000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+151073.686507,   487.000000
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+100513.325961,   482.333333
+
+Ants: 40
+
+Alpha: 0.800000
+
+Beta: 1.000000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+1990686.485222,   485.666667
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+1994736.314829,   487.000000
+
+Beta: 3.500000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+172977.773429,   481.000000
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+156887.644554,   482.666667
+
+Alpha: 1.000000
+
+Beta: 1.000000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+1986780.566866,   486.666667
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+1977000.238211,   486.000000
+
+Beta: 3.500000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+170948.074251,   483.666667
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+151982.356187,   482.666667
+
+File Name: pr2392.tsp
+
+Ants: 20
+
+Alpha: 0.800000
+
+Beta: 1.000000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+9258507.856818,   483.666667
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+9233944.840097,   483.666667
+
+Beta: 3.500000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+794925.014669,   487.333333
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+592834.251846,   483.666667
+
+Alpha: 1.000000
+
+Beta: 1.000000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+9339725.768872,   480.333333
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+9241605.556441,   480.333333
+
+Beta: 3.500000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+794483.220935,   486.000000
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+575589.255380,   487.000000
+
+Ants: 40
+
+Alpha: 0.800000
+
+Beta: 1.000000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+9291306.651772,   488.666667
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+9281734.435090,   486.000000
+
+Beta: 3.500000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+813821.139040,   483.333333
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+800433.573461,   483.333333
+
+Alpha: 1.000000
+
+Beta: 1.000000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+9305234.728518,   489.000000
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+9306309.867732,   487.000000
+
+Beta: 3.500000
+
+Rho : 0.100000
+
+AvgLength, AvgTime
+816430.700535,   480.666667
+
+Rho : 0.200000
+
+AvgLength, AvgTime
+793478.271854,   482.000000

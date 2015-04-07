@@ -1,6 +1,18 @@
 
 File Name: u2152.tsp
 
-Epsilon: 0.050000
+Epsilon: 0.100000
+
+Q Probability: 0.500000
+
+AvgLength, AvgTime
+113347.525517,   1795.333333
+
+Q Probability: 0.900000
+
+AvgLength, AvgTime
+82455.173836,   357.000000
+
+Epsilon: 0.200000
 
 Q Probability: 0.500000

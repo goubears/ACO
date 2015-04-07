@@ -68,7 +68,7 @@ public class ACO {
         PrintStream std = System.out;
 	    try
 	    {
-	        FileOutputStream fos = new FileOutputStream("resultsShared.csv", true); 
+	        FileOutputStream fos = new FileOutputStream("resultsSharedNewE.csv", true); 
 	        out = new PrintStream(fos);
    		 	System.setOut(out);     
 	    }
@@ -80,29 +80,20 @@ public class ACO {
 	   	elitism = 20; 					// placeholder
 	   	// epsilon = 0.1;					// placeholder
 	   	// qProb = 0.9;					// placeholder
+	   	iterations = 500;
 
 
-	   	for(int i=0; i<4; i++){
+	   	for(int i=0; i<2; i++){
 	    	switch (i){
 	    		case 0: 
-	    			fileName = "u2152.tsp";
+	    			fileName = "d2103.tsp";
 	    			file = new File(fileName);
-	    			optimum = 64253;
+	    			optimum = 80450;
 	    			break;
 	    		case 1:
-	    			fileName = "fl3795.tsp";
+	    			fileName = "pr2392.tsp";
 	    			file = new File(fileName);
-	    			optimum = 28772;
-	    			break;
-	    		case 2:
-	    			fileName = "fnl4461.tsp";
-	    			file = new File(fileName);
-	    			optimum = 182566;
-	    			break;
-	    		case 3:
-	    			fileName = "rl5934.tsp";
-	    			file = new File(fileName);
-	    			optimum = 556045;
+	    			optimum = 378032;
 	    			break;
 	    		default:
 	    			System.out.printf("Error in file name.");
@@ -114,30 +105,16 @@ public class ACO {
 	   		for(int a=0; a<2; a++){
 	   			switch (a){
 	   				case 0:
-	   					ants = 3;
+	   					ants = 20;
 	   					break;
 	   				case 1:
-	   					ants = 10;
+	   					ants = 40;
 	   					break;
 	   				default:
 	   					System.out.printf("Error in ants.");
 	   					break;
 	   			}
 	   			System.out.printf("\nAnts: %d\n", ants);
-
-	   			for(int b=0; b<2; b++){	
-	   				switch (b){				
-	   					case 0:
-	   						iterations = 3;
-	   						break;
-	   					case 1:
-	   						iterations = 10;
-	   						break;
-	   					default:
-	   						System.out.printf("Error in iterations.");
-	   						break;
-	   				}
-	   				System.out.printf("\nIterations: %d\n", iterations);
 
 	   				for(int c=0; c<2; c++){
 	   					switch (c){				
@@ -184,7 +161,7 @@ public class ACO {
 	   							// for(int f=0; f<2; f++){
 	   							// 	switch (f){				//get actual values later
 	   							// 		case 0:
-	   										System.out.printf("\nElitist Ant System\n");
+	   										//System.out.printf("\nElitist Ant System\n");
 	   										testRunsElitism();
 	   										//break;
 	   									// case 1:
@@ -200,7 +177,7 @@ public class ACO {
 		   					}
 	   					}
 	   				}
-	   			}
+	   			
 	   		}
 
 	   		//A
@@ -349,7 +326,7 @@ public class ACO {
         PrintStream std = System.out;
 	    try
 	    {
-	        FileOutputStream fos = new FileOutputStream("resultsElitism.csv", true); 
+	        FileOutputStream fos = new FileOutputStream("resultsElitismNew.csv", true); 
 	        out = new PrintStream(fos);
    		 	System.setOut(out);     
 	    }
@@ -361,34 +338,24 @@ public class ACO {
 	    int runs = 3;
 
 		//shared variables    			 		//change variables depending on the document
-		ants = 7;
-		iterations = 5;
+		ants = 30;
+		iterations = 500;
 		alpha = 1;
 		beta = 3.5;
 		rho = 0.1;
 
 		 //first set of test to optimize the specialized parameters of elitist and acs
-	    for(int i=0; i<4; i++){
+	    for(int i=0; i<2; i++){
 	    	switch (i){
 	    		case 0: 
-	    			fileName = "u2152.tsp";
+	    			fileName = "d2103.tsp";
 	    			file = new File(fileName);
-	    			optimum = 64253;
+	    			optimum = 80450;
 	    			break;
 	    		case 1:
-	    			fileName = "fl3795.tsp";
+	    			fileName = "pr2392.tsp";
 	    			file = new File(fileName);
-	    			optimum = 28772;
-	    			break;
-	    		case 2:
-	    			fileName = "fnl4461.tsp";
-	    			file = new File(fileName);
-	    			optimum = 182566;
-	    			break;
-	    		case 3:
-	    			fileName = "rl5934.tsp";
-	    			file = new File(fileName);
-	    			optimum = 556045;
+	    			optimum = 378032;
 	    			break;
 	    		default:
 	    			System.out.printf("Error in file name.");

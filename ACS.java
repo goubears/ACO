@@ -29,9 +29,8 @@ public class ACS {
     private static Tour bestSolution;
     private static double bestLength = Double.POSITIVE_INFINITY;
 
-    //time limit to stop algorithm (set at three minutes) (ms)
-    
-    private static final long TIME_LIMIT = 180000;
+    //time limit to stop algorithm (set at eight minutes) (ms)
+    private static final long TIME_LIMIT = 480000;
 
     //random number generator
     private static Random rand;
