@@ -176,7 +176,7 @@ public class ElitistAnt {
                             }
                             else
                             {
-                                probabilitySum += probabilities[j];
+                            	probabilitySum += probabilities[j];
                             }
                         }
                     }    
@@ -197,12 +197,14 @@ public class ElitistAnt {
                     currBestLength = route.getLength();
                     currBest.markBest();
                 }
+                
+                System.out.println("ant completed");
 
                 //A
                 visitedCities = null;
                 route = null;
             }
-
+            
             //update pheromone levels according to elitism equations
             double updates[] = new double[numPaths];
             for (int i = 0; i < solutions.size(); i++)
@@ -249,7 +251,9 @@ public class ElitistAnt {
 
             //A
             currBest = null;
-
+            
+            System.out.println("tour completed");
+            System.out.println("time: " + (System.currentTimeMillis()-startTime));
 
             //break;
         }

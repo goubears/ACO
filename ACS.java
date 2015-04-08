@@ -113,6 +113,117 @@ public class ACS {
         	Tour currentBest = new Tour();
             double currentBestLength = Double.POSITIVE_INFINITY;
             
+            /*
+             * TEST
+             */
+            
+            //construct a tour for each ant
+            for (int i=0; i<NUM_ANTS; i++)
+            {
+            	int currentCity = rand.nextInt(cities.size() - 1); //choose random starting city
+            	int numberOfCitiesVisited = 1;
+            	boolean[] visitedCities = new boolean[NUM_CITIES];
+				visitedCities[currentCity] = true;
+				Tour route = new Tour();
+                
+                //visit new cities until all have been visited
+                while (numberOfCitiesVisited < NUM_CITIES)
+                {
+                	int newCity = -1;
+                	
+					//use q probability to choose ant's next city destination
+            		if (rand.nextDouble() < Q_PROB)
+            		{
+            			//move to city that maximizes equation t*(n^beta) 
+            			int maxCity = -1;
+            	    	double maxCityValue = 0;
+            		
+            			//loop through all cities the ant hasn't visited yet to find the max result
+            			for (int j=0; j<cities.size(); j++)
+            			{
+            				if (visitedCities[j] == false)
+            				{            					
+            					Path possiblePath = paths[currentCity][j];
+            					double nextCityValue = possiblePath.getPheromone()*Math.pow(1/possiblePath.getLength(), BETA);
+            					if (nextCityValue > maxCityValue)
+            					{
+            						maxCityValue = nextCityValue;
+            						maxCity = j;
+            					}
+            				}
+            			}
+            			//city that maximizes the equation
+            			newCity = maxCity;
+            		}
+            		//use the action choice rule to choose ant's next city destination
+            		else 
+            		{
+            			//use probabilities to chose next city, mark it as visited
+                        double probabilitySum = 0;
+                        for (int j = 0; j < cities.size(); j++)
+                        {
+            				if (visitedCities[j] == false) //haven't visited city yet
+            				{
+            					//calculate proability of moving ant to this city
+            					double denominator = 0;
+            					for (int k=0; k<cities.size(); k++)
+            					{
+            						if (visitedCities[k] == false)
+            						{
+            							Path allPossiblePaths = paths[currentCity][k];
+            							denominator = denominator + (Math.pow(allPossiblePaths.getPheromone(), ALPHA)*Math.pow(1/allPossiblePaths.getLength(), BETA));
+            						}
+            					}
+
+            					Path possiblePath = paths[currentCity][j];
+            					double numerator = (Math.pow(possiblePath.getPheromone(), ALPHA)*Math.pow(1/possiblePath.getLength(), BETA));
+
+            					double probabilityOfChoosing = numerator/denominator;
+
+            					//is the probability high enough for the ant to actually move?
+            					if (rand.nextDouble() < probabilitySum + probabilityOfChoosing)
+            					{
+            						newCity = j;
+            						break;
+            					}
+            					 else
+                                 {
+                                 	probabilitySum = probabilitySum + probabilityOfChoosing;
+                                 }
+            				}
+            			}
+            		}
+            		//move ant to new city
+            		route.addPath(paths[currentCity][newCity]);
+            		
+            		//update path, pheromone "worn away" when ant moves along path 
+    				Path traversedPath = paths[currentCity][newCity];
+    				double newPheromone = (((1-EPSILON)*traversedPath.getPheromone())+(EPSILON*TAU));
+    				traversedPath.setPheromone(newPheromone);
+    				
+    				//update ant
+            		currentCity = newCity;
+					visitedCities[newCity] = true;
+			
+    				numberOfCitiesVisited++;
+				}
+                
+                System.out.println("ant completed");
+				 
+				//check if a shorter tour has been found
+            	if (route.getLength() < bestLength)
+            	{
+            		bestLength = route.getLength();
+           			bestSolution = route;
+           		}
+			}
+
+            /*
+             * END TEST
+             */
+            
+            /**
+            
             //CREATE ANTS
             
             //initialize all ants
@@ -215,12 +326,20 @@ public class ACS {
             	}
             	
             	//REPEAT UNTIL ALL CITIES VISITED
+            	System.out.println(numberOfCitiesVisited + " cities completed");
+            	if (numberOfCitiesVisited == 100)
+            	{
+            		 System.out.println("time: " + (System.currentTimeMillis()-startTime));
+            	}
             	
             	//all ants have visited a new city
             	numberOfCitiesVisited++;		
             }
             
             //TOUR COMPLETE
+            
+            System.out.println("tour completed");
+            System.out.println("time: " + (System.currentTimeMillis()-startTime));
             
             //check if a shorter tour has been found
             for (int i=0; i<NUM_ANTS; i++)
@@ -232,6 +351,8 @@ public class ACS {
             		bestSolution = test;
             	}
             }
+            
+            **/
             
             //UPDATE PHEROMONE LEVELS 
             
@@ -253,9 +374,12 @@ public class ACS {
             //REPEAT UNTIL OPTIMAL FOUND
             totalIterations++;
             
+            System.out.println("tour completed");
+            System.out.println("time: " + (System.currentTimeMillis()-startTime));
+            
             //A
             currentBest = null;
-            arrayOfAnts = null;
+            //arrayOfAnts = null; //comment out for test only
 
             //System.out.println("iteration " +totalIterations+ ", current best length: " +bestLength);
         }
@@ -341,7 +465,6 @@ public class ACS {
         //A 
         ant = null;
         vistiedCityAlready = null;
-
     }
 
 }
