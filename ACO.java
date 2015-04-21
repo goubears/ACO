@@ -47,8 +47,8 @@ public class ACO {
 
 	//contains the output of the algorithms
 	private static double[] output = new double[2]; 
-	//0: best length 
-	//1: time in seconds
+		//0: best length 
+		//1: time in seconds
 
 	//main method
 	public static void main(String[] args) 
@@ -63,6 +63,17 @@ public class ACO {
 		}
 	}
 
+	/*the test script for testing the parameters of elitism with:
+		e = 20
+		iterations = 500
+		file = d2103.tsp, pr2392.tsp
+		ants = 20, 40
+		alpha = 0.8, 1
+		beta = 1, 3.5
+		rho = 0.1, 0.2
+	gets the bestlength and time
+	average over 3 runs
+	*/
 	public static void runTestShared(){
 		PrintStream out = System.out;
         PrintStream std = System.out;
@@ -77,9 +88,7 @@ public class ACO {
 	    	System.out.println(ex.getMessage());
 	    }
 
-	   	elitism = 20; 					// placeholder
-	   	// epsilon = 0.1;					// placeholder
-	   	// qProb = 0.9;					// placeholder
+	   	elitism = 20; 					
 	   	iterations = 500;
 
 
@@ -187,6 +196,8 @@ public class ACO {
 	}
 
 
+
+	//helper functions for test script of elitism
 	public static void testRunsElitism(){
 		int runs = 3;
 		double avgLength = 0;
@@ -201,6 +212,8 @@ public class ACO {
 	}
 
 
+
+	//helper functions for test script of acs
 	public static void testRunsACS(){
 		int runs = 3;
 		double avgLength = 0;
@@ -215,112 +228,16 @@ public class ACO {
 	}
 
 
-
-	public static void runTestACS(){
-		PrintStream out = System.out;
-        PrintStream std = System.out;
-	    try
-	    {
-	        FileOutputStream fos = new FileOutputStream("resultsACS.csv", true); 
-	        out = new PrintStream(fos);
-   		 	System.setOut(out);     
-	    }
-	    catch (FileNotFoundException ex)  
-	    {
-	    	System.out.println(ex.getMessage());
-	    }
-
-	    int runs = 3;
-
-	    //shares Variables
-		ants = 7;
-		iterations = 5;
-		alpha = 1;
-		beta = 3.5;
-		rho = 0.1;
-
-		for(int i=0; i<4; i++){
-	    	switch (i){
-	    		case 0: 
-	    			fileName = "u2152.tsp";
-	    			file = new File(fileName);
-	    			optimum = 64253;
-	    			break;
-	    		case 1:
-	    			fileName = "fl3795.tsp";
-	    			file = new File(fileName);
-	    			optimum = 28772;
-	    			break;
-	    		case 2:
-	    			fileName = "fnl4461.tsp";
-	    			file = new File(fileName);
-	    			optimum = 182566;
-	    			break;
-	    		case 3:
-	    			fileName = "rl5934.tsp";
-	    			file = new File(fileName);
-	    			optimum = 556045;
-	    			break;
-	    		default:
-	    			System.out.printf("Error in file name.");
-	    			break;
-	    	}
-	    	System.out.printf("\nFile Name: %s\n", fileName);
-	    	readFile(file);
-
-	    	for(int j=0; j<2; j++){
-	    		switch (j){
-	    			case 0:
-	    				epsilon = 0.1;
-	    				break;
-	    			case 1:
-	    				epsilon = 0.2;
-	    				break;
-	    			default:
-	    				System.out.printf("Error in epsilon.");
-	    				break;
-	    		}
-	    		System.out.printf("\nEpsilon: %f\n", epsilon);
-
-	    		for(int k=0; k<2; k++){
-	    			switch (k){
-	    				case 0:
-	    					qProb = 0.5;
-	    					break;
-	    				case 1:
-	    					qProb = 0.9;
-	    					break;
-	    				default:
-	    					System.out.println("Error in q probability.");
-	    					break;
-	    			}
-	    			System.out.printf("\nQ Probability: %f\n", qProb);
-
-	    			double avgLength = 0;
-	    			double avgTime = 0;
-	    			for(int l=0; l<runs; l++){
-	    				antCS.acs(fileName, optimum, place, ants, iterations, alpha, beta, rho, epsilon, qProb);
-	    				avgLength += antCS.getBestLength();
-						avgTime += (double)antCS.getTime();
-						System.setOut(std); 
-						float pComplete = (((float)l+1)/(float)runs)*100;
-						System.out.printf("%d%%\n", (int)pComplete);
-						System.setOut(out);
-	    			}
-	    			avgLength = avgLength/(double)runs;
-	    			avgTime = avgTime/(double)runs;
-	    			System.out.printf("\nAvgLength, AvgTime\n%f,   %f\n", avgLength, avgTime);
-	    		}
-	    	}
-
-	    	//A
-	    	place = null;
-	    	place = new Vector<City>();
-	    }
-	}
-
-
-
+	/*the test script for testing optimizing the elitism factor of elitism with:
+		iterations = 500
+		file = d2103.tsp, pr2392.tsp
+		ants = 30
+		alpha = 1
+		beta = 3.5
+		rho = 0.1
+	gets the bestlength and time
+	averaged over 3 runs
+	*/
 	public static void runTestElitism(){
 		PrintStream out = System.out;
         PrintStream std = System.out;
@@ -404,7 +321,7 @@ public class ACO {
 	}
 
 
-
+	//calls the methods, if there are command line arguments
 	public static void runCommand(String[] arg){
 		file 		= new File(arg[0]);
 		algorithm 	= arg[1];  					//either e or a
